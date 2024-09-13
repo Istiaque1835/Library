@@ -1,0 +1,134 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Update Book{% endblock %}
+
+{% block main %}
+<section class="section">
+   <div class="row py-3">
+      <div class="col-lg-4 offset-4">
+        <div class="card">
+          <div class="card-body" >
+            <h5 class="card-title text-uppercase font-weight-bold" style="font-size: 2rem; text-align: center;">Update Books</h5>
+
+            <!-- General Form Elements -->
+            <form method="post" enctype="multipart/form-data" action="{% url 'update_book' book.id %}">
+              {% csrf_token %}
+              <div class="row mb-3">
+               <div class="col-lg-12">
+                  <div class="row">
+                    <label for="inputText" class="col-lg-4 col-form-label" style="font-weight: bold;font-size: large;">Book Name:</label>
+                    <div class="col-lg-8">
+                      <input type="text" name="title" class="form-control" value="{{ book.title }}">
+                    </div>
+                  </div>
+              </div>
+               </div>
+
+               <div class="row mb-3">
+                  <div class="col-lg-12">
+                     <div class="row">
+                     <label for="inputText" class="col-lg-4 col-form-label" style="font-weight: bold;font-size: large;">Author:</label>
+                     <div class="col-lg-8">
+                        <input type="text" name="author" class="form-control" value="{{ book.author }}">
+                     </div>
+                     </div>
+                  </div>
+               </div>
+
+               <div class="row mb-3">
+                  <div class="col-lg-12">
+                     <div class="row">
+                     <label for="inputText" class="col-lg-4 col-form-label" style="font-weight: bold;font-size: large;">Published Year:</label>
+                     <div class="col-lg-8">
+                        <input type="text" name="publish_year" class="form-control" value="{{ book.publish_year }}">
+                     </div>
+                     </div>
+                  </div>
+               </div>
+
+               <div class="row mb-3">
+                  <div class="col-lg-12">
+                     <div class="row">
+                     <label for="inputText" class="col-lg-4 col-form-label" style="font-weight: bold;font-size: large;">Genre:</label>
+                     <div class="col-lg-8 mb-1">
+                        <select name="genre" class="form-control" style="max-height: 150px; overflow-y: auto;">
+                           <option value="">Select</option>
+                           <option value="Fiction" {% if book.genre == 'Fiction' %}selected{% endif %}>Fiction</option>
+                           <option value="Non-Fiction" {% if book.genre == 'Non-Fiction' %}selected{% endif %}>Non-Fiction</option>
+                           <option value="Science Fiction" {% if book.genre == 'Science Fiction' %}selected{% endif %}>Science Fiction</option>
+                           <option value="Fantasy" {% if book.genre == 'Fantasy' %}selected{% endif %}>Fantasy</option>
+                           <option value="Mystery" {% if book.genre == 'Mystery' %}selected{% endif %}>Mystery</option>
+                           <option value="Horror" {% if book.genre == 'Horror' %}selected{% endif %}>Horror</option>
+                           <option value="Romance" {% if book.genre == 'Romance' %}selected{% endif %}>Romance</option>
+                           <option value="Biography" {% if book.genre == 'Biography' %}selected{% endif %}>Biography</option>
+                           <option value="Autobiography" {% if book.genre == 'Autobiography' %}selected{% endif %}>Autobiography</option>
+                           <option value="Self-Help" {% if book.genre == 'Self-Help' %}selected{% endif %}>Self-Help</option>
+                           <option value="Cookbook" {% if book.genre == 'Cookbook' %}selected{% endif %}>Cookbook</option>
+                           <option value="Poetry" {% if book.genre == 'Poetry' %}selected{% endif %}>Poetry</option>
+                           <option value="History" {% if book.genre == 'History' %}selected{% endif %}>History</option>
+                           <option value="Travel" {% if book.genre == 'Travel' %}selected{% endif %}>Travel</option>
+                           <option value="Guide" {% if book.genre == 'Guide' %}selected{% endif %}>Guide</option>
+                           <option value="Drama" {% if book.genre == 'Drama' %}selected{% endif %}>Drama</option>
+                           <option value="Action" {% if book.genre == 'Action' %}selected{% endif %}>Action</option>
+                           <option value="Adventure" {% if book.genre == 'Adventure' %}selected{% endif %}>Adventure</option>
+                           <option value="Comedy" {% if book.genre == 'Comedy' %}selected{% endif %}>Comedy</option>
+                           <option value="Comic" {% if book.genre == 'Comic' %}selected{% endif %}>Comic</option>
+                           <option value="Graphic Novel" {% if book.genre == 'Graphic Novel' %}selected{% endif %}>Graphic Novel</option>
+                           <option value="Manga" {% if book.genre == 'Manga' %}selected{% endif %}>Manga</option>
+                           <option value="Children" {% if book.genre == 'Children' %}selected{% endif %}>Children</option>
+                           <option value="Young Adult" {% if book.genre == 'Young Adult' %}selected{% endif %}>Young Adult</option>
+                           <option value="Adult" {% if book.genre == 'Adult' %}selected{% endif %}>Adult</option>
+                           <option value="Other" {% if book.genre == 'Other' %}selected{% endif %}>Other</option>
+                        </select>
+                     </div>
+                     </div>
+                  </div>
+               </div>
+
+               <div class="row mb-3">
+                  <div class="col-lg-12">
+                     <div class="row">
+                     <label for="inputText" class="col-lg-4 col-form-label" style="font-weight: bold; font-size: large;">Summary:</label>
+                     <div class="col-lg-8">
+                        <textarea name="summary" class="form-control">{{ book.summary }}</textarea>
+                     </div>
+                     </div>
+                  </div>
+               </div>
+
+               <div class="row mb-3">
+                  <div class="col-lg-12">
+                     <div class="row">
+                     <label for="inputText" class="col-lg-4 col-form-label" style="font-weight: bold;font-size: large;">Book Cover:</label>
+                     <div class="col-lg-8">
+                        <input type="file" name="cover" class="form-control">
+                        <p>Current cover: <a href="{{ book.cover.url }}">{{ book.cover.name }}</a></p>
+                     </div>
+                     </div>
+                  </div>
+               </div>
+
+               <div class="row mb-3">
+                  <div class="col-lg-12">
+                     <div class="row">
+                     <label for="inputText" class="col-lg-4 col-form-label" style="font-weight: bold;font-size: large;">Book PDF:</label>
+                     <div class="col-lg-8">
+                        <input type="file" name="pdf" class="form-control">
+                        <p>Current PDF: <a href="{{ book.pdf.url }}">{{ book.pdf.name }}</a></p>
+                     </div>
+                     </div>
+                  </div>
+               </div>
+
+              <div class="row mb-4">
+                <div class="col" style="text-align:center;">
+                  <button type="submit" class="btn btn-primary px-5">Update</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+   </div>
+</section>
+{% endblock %}

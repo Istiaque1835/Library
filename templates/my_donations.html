@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}My Donations{% endblock %}
+
+{% block main %}
+
+<section class="section py-5">
+   <div class="container py-5">
+      <!-- Title Card -->
+      <div class="card mb-4">
+         <div class="card-body text-center">
+            <h5 class="card-title text-uppercase font-weight-bold" style="font-size: 2rem;">My Donated Books</h5>
+         </div>
+      </div>
+      
+      <!-- Product List Card -->
+      <div class="card">
+         <div class="card-body">
+            
+            
+            <!-- Products Table -->
+            <table class="table table-bordered table-striped">
+               <thead class="thead-dark" style="text-align: center;" >
+                  <tr style="vertical-align: middle; font-size: large;">
+                     <th scope="col">Cover</th>
+                     <th scope="col">Book Name</th>
+                     <th scope="col">Author</th>
+                     <th scope="col">Donated On</th>
+                     <th scope="col">Action</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  {% for book in books %}
+                  <tr>
+                     <td class="text-center" style="vertical-align: middle;">
+                        {% if book.cover %}
+                        <img src="{{ book.cover.url }}" alt="cover" width="70" height="100">
+                        {% else %}
+                        No Cover Available
+                        {% endif %}
+                     </td>
+                     <td class="text-center" style="vertical-align: middle; font-size: large;">{{ book.title }}</td>
+                     <td class="text-center" style="vertical-align: middle; font-size: large;">{{ book.author }}</td>
+                     <td class="text-center" style="vertical-align: middle; font-size: large;">{{ book.donated_on }}</td>
+                     
+                     <td class="text-center" style="vertical-align: middle; font-size: large;">
+                        <a href="{% url 'book_detail' book.id %}" class="btn btn-success btn-sm">Details</a>
+                        <a href="{% url 'update_book' book.id %}" class="btn btn-warning btn-sm">Update</a>
+                        <!-- Uncomment if you want to add delete functionality -->
+                        <a href="{% url 'delete_book' book.id %}" class="btn btn-danger btn-sm">Delete</a>
+                     </td>
+                  </tr>
+                  {% endfor %}
+               </tbody>
+            </table>
+         </div>
+         <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+               {% if books.has_previous %}
+               <li class="page-item">
+                  <a class="page-link" href="?page=1" aria-label="Previous">
+                     <span aria-hidden="true">&laquo;</span>
+                  </a>
+               </li>
+               <li class="page-item">
+                  <a class="page-link" href="?page={{ books.previous_page_number }}" aria-label="Previous">
+                     <span aria-hidden="true">&lsaquo;</span>
+                  </a>
+               </li>
+               {% endif %}
+               {% for num in books.paginator.page_range %}
+               <li class="page-item {% if num == books.number %}active{% endif %}">
+                  <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+               </li>
+               {% endfor %}
+               {% if books.has_next %}
+               <li class="page-item">
+                  <a class="page-link" href="?page={{ books.next_page_number }}" aria-label="Next">
+                     <span aria-hidden="true">&rsaquo;</span>
+                  </a>
+               </li>
+               <li class="page-item">
+                  <a class="page-link" href="?page={{ books.paginator.num_pages }}" aria-label="Next">
+                     <span aria-hidden="true">&raquo;</span>
+                  </a>
+               </li>
+               {% endif %}
+            </ul>
+         </nav>
+      </div>
+      
+   </div>
+</section>
+
+
+
+
+{% endblock %}

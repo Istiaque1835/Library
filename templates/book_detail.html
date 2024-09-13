@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Book Details{% endblock %}
+
+{% block main %}
+
+<section class="section py-5">
+   <div class="container">
+      <div class="card">
+         <div class="card-body">
+            <!-- Book Title -->
+            <h5 class="card-title text-uppercase font-weight-bold" style="font-size: 2rem; text-align: center;">Book Details</h5>
+            
+            <div class="row">
+               <!-- Book Information -->
+               <div class="col-lg-8">
+                  <dl class="row">
+                     <dt class="col-sm-4 font-weight-bold " style="font-size: large;">Book Name:</dt>
+                     <dd class="col-sm-8" style="font-size: large;">{{ book.title }}</dd>
+
+                     <dt class="col-sm-4 font-weight-bold"style="font-size: large;">Author:</dt>
+                     <dd class="col-sm-8"style="font-size: large;">{{ book.author }}</dd>
+
+                     <dt class="col-sm-4 font-weight-bold"style="font-size: large;">Genre:</dt>
+                     <dd class="col-sm-8"style="font-size: large;">{{ book.genre }}</dd>
+
+                     <dt class="col-sm-4 font-weight-bold" style="font-size: large;">Publish Year:</dt>
+                     <dd class="col-sm-8"style="font-size: large;">{{ book.publish_year }}</dd>
+
+                     <dt class="col-sm-4 font-weight-bold"style="font-size: large;">Book Description:</dt>
+                     <dd class="col-sm-8"style="font-size: large;">{{ book.summary }}</dd>
+
+                     <dt class="col-sm-4 font-weight-bold"style="font-size: large;">Donor:</dt>
+                     <dd class="col-sm-8"style="font-size: large;">{{ book.donar }}</dd>
+
+                     <dt class="col-sm-4 font-weight-bold"style="font-size: large;">Donated On:</dt>
+                     <dd class="col-sm-8"style="font-size: large;">{{ book.donated_on }}</dd>
+                  </dl>
+                  
+                  <a href="{% url 'home' %}" class="btn btn-primary mt-3 px-5">Back</a>
+                  <a href="{% url 'book_download' book.id %}" class="btn btn-success mt-3 px-4">Download</a>
+
+
+               </div>
+
+               <!-- Book Cover -->
+               <div class="col-lg-4">
+                  <div class="card h-100">
+                     <div class="card-body text-center">
+                        <h5 class="card-title"style="font-size: large; font-weight: bold">Book Cover</h5>
+                        {% if book.cover %}
+                        <img src="{{ book.cover.url }}" alt="Cover Image" class="img-fluid" style="max-width: 70%; height: auto;">
+                        {% else %}
+                        <p>No Cover Available</p>
+                        {% endif %}
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</section>
+
+{% endblock %}

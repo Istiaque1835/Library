@@ -1,0 +1,36 @@
+{%extends 'base.html'%}
+{%load static%}
+{%block title%}Converter{%endblock%}
+{%block main%}
+
+
+<section class="section py-5">
+   <div class="container py-5">
+      <!-- Title Card -->
+      <div class="card mb-4">
+         <div class="card-body text-center">
+            <h5 class="card-title text-uppercase font-weight-bold" style="font-size: 2rem;">Converter</h5>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="file">Select File</label>
+                        <input type="file" class="form-control-file" id="file" name="file">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Convert</button>
+                </form>
+                {% if converted_pdf %}
+                    <h2>Your file has been converted successfully!</h2>
+                    <a href="{% url 'convert_file' %}">
+                    <button>Download Converted PDF</button>
+                </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+
+{%endblock%}
